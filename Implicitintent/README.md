@@ -1,5 +1,5 @@
-# Ex.No:3 Develop program to create a text field and a button “Navigate”. When you enter “www.google.com” and 
-press navigate button it should open google page using Implicit Intents.
+# Ex.No:3 Develop program to create a text field and a button “Navigate”. When you enter “www.google.com” and press navigate button it should open google page using Implicit Intents.
+
 
 ## AIM:
 
