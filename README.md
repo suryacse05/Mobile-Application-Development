@@ -1,9 +1,10 @@
-# Ex.No:1 To create a HelloWorld Activity using all lifecycles methods to display messages.
+# Ex.No: 2 To develop an application that uses GUI Components with Fonts and Colors. 
+Note: Create button for colors and fonts while clicking color or font button should change 
 
 
 ## AIM:
 
-To create a HelloWorld Activity using all lifecycles methods to display messages using Android Studio.
+To create an application that uses GUI Components with Fonts and Colors using Android Studio.
 
 ## EQUIPMENTS REQUIRED:
 
@@ -28,123 +29,127 @@ Step 7: Save and run the application.
 ## PROGRAM:
 ```
 /*
-Program to print the text “Hello World”.
-Developed by: SANDEEPA N
+Program to print the text “GUIcomponent”.
+Developed by: Sandeepa.N
 Registeration Number :212221040144
 */
 ```
-## MainActivity.java:-
-```
-package com.example.helloworld;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+**Activity_xml File:**
+    
+    
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".MainActivity">
 
-public class MainActivity extends AppCompatActivity {
+    <Button
+        android:id="@+id/colbut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="#FFC107"
+        android:text="Change Color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    private static final String TAG = "HelloWorldActivity";
+    <Button
+        android:id="@+id/fonbut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#FF5722"
+        android:text="Change Font"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colbut" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="152dp"
+        android:text="PRIME PLAYS"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fonbut" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        
+**MainActivity.java File:**
+    
+    package com.example.guicomps;
+
+    import androidx.appcompat.app.AppCompatActivity;
+
+    import android.content.res.AssetManager;
+    import android.graphics.Color;
+    import android.graphics.Typeface;
+    import android.os.Bundle;
+    import android.view.View;
+    import android.widget.Button;
+    import android.widget.TextView;
+
+    import java.io.IOException;
+    import java.io.InputStream;
+
+    public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TextView textView;
+    private Button colorButton;
+    private Button fontButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: ");
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+
+        textView = findViewById(R.id.textView);
+        colorButton = findViewById(R.id.colbut);
+        fontButton = findViewById(R.id.fonbut);
+
+        colorButton.setOnClickListener(this);
+        fontButton.setOnClickListener(this);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.colbut:
+                changeTextColor();
+                break;
+            case R.id.fonbut:
+                changeFont();
+                break;
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+    private void changeTextColor() {
+        int randomColor = generateRandomColor();
+        textView.setTextColor(randomColor);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+    private void changeFont() {
+        Typeface newFont = Typeface.createFromAsset(getAssets(), "font/pacifico.ttf");
+        textView.setTypeface(newFont);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+    private int generateRandomColor() {
+        int red = (int) (Math.random() * 256);
+        int green = (int) (Math.random() * 256);
+        int blue = (int) (Math.random() * 256);
+        return Color.rgb(red, green, blue);
+    }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart: ");
-        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
-    }
-}
-
-```
-## Activity_main.xml:-
-```
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="238dp"
-        android:layout_height="105dp"
-        android:text="Hello World!"
-        android:textSize="100px"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.591"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-```
 
 ## OUTPUT:
-
-## onStart()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/8cba54f1-6212-4df0-bcdb-f63968180a8c)
-
-## onCreate()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/9cb0a129-1e6e-4070-9d46-e883a3c5ffa8)
-
-## onRestart()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/65457888-9a0f-453c-a7f0-238718ce93b3)
-
-## onPause()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/65590a7f-907f-4322-a343-e0e9dfb07f04)
-
-## onResume()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/54f82a3d-ab7a-4122-9c62-8465d6c1271f)
-
-## onDestroy()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/832d0445-3278-48e4-b718-7f0c030f73d1)
-
-## onStop()
-![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/3e74dfc3-82a2-4c4e-86f4-1361d8b499ed)
+   
+  ![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/59eccc13-90e9-4e0c-9360-6007c82ee610)  
+  ![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/8dc521e7-3138-444e-a108-58762564cce0)
 
 ## RESULT:
-Thus a Simple Android Application create a HelloWorld Activity using all lifecycles methods to display messages using Android Studio is developed and executed successfully.
+Thus a Simple Android Application that uses GUI Components with Fonts and Colors using Android Studio is developed and executed successfully
